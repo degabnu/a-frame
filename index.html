@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Maze with Interactive Challenges</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- Inclusão da biblioteca de física A-Frame -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
     <script src="scripts/main.js" defer></script>
 </head>
 <body>
-    <a-scene vr-mode-ui="enabled: true">
-        <a-entity id="player" camera look-controls wasd-controls position="0 0.5 0"></a-entity>
+    <a-scene physics="debug: true; gravity: -9.8">
+        <!-- Configuração do jogador com corpo dinâmico -->
+        <a-entity id="player" camera look-controls wasd-controls dynamic-body="mass: 5; shape: box" position="0 1.5 0"></a-entity>
         <a-sky color="#ECECEC"></a-sky>
-        <!-- Add physics to the scene -->
+        <!-- Cenário do labirinto será gerado por script -->
         <a-entity id="maze"></a-entity>
-        <!-- Add interactive challenges here -->
+        <!-- Elemento interativo do desafio -->
         <a-entity id="challenge" position="0 0.5 -5" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
     </a-scene>
 </body>
