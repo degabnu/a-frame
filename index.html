@@ -10,14 +10,17 @@
     <script src="scripts/main.js" defer></script>
 </head>
 <body>
-    <a-scene physics="debug: true; gravity: -9.8">
+    <a-scene physics="debug: true; gravity: 0">
+        <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" static-body></a-plane>
         <!-- Configuração do jogador com corpo dinâmico -->
-        <a-entity id="player" camera look-controls wasd-controls dynamic-body="mass: 5; shape: box" position="0 1.5 0"></a-entity>
+        <a-entity id="player" static-body="mass: 5; shape: box" position="0 1.5 0">
+            <a-camera position="0 15 0" look-controls wasd-controls></a-camera>
+        </a-entity>
         <a-sky color="#ECECEC"></a-sky>
         <!-- Cenário do labirinto será gerado por script -->
         <a-entity id="maze"></a-entity>
         <!-- Elemento interativo do desafio -->
-        <a-entity id="challenge" position="0 0.5 -5" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
+        <a-entity id="challenge" position="11 0.5 -12" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
     </a-scene>
 </body>
 </html>
