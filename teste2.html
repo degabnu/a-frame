@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Maze with Interactive Challenges</title>
+    <script src="libs/aframe.js"></script>    <!--Aframe.js(v0.3.0) Library-->
+    <script src="libs/aframe-extras.js"></script>    <!--Aframe-extras.js(v2.6.1) Library-->
+    <script src="libs/aframe-text-component.min.js"></script>   <!--Aframe library used for rendering text-->
+    <script src="libs/lz-string.min.js"></script>   <!--LZ-based compression algorithm for JavaScript-->
+    <script src="libs/aframe-bmfont-text-component.js"></script>    <!--Aframe library used for rendering bitmap font text-->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-glow@1.0.1/dist/aframe-glow-component.js"></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+  <a-scene physics="debug: true; gravity: 9.8">
+    <a-assets>
+      <img src="grass.jpg" id="grass">
+      <img src="sky.jpg" id="sky">
+      <img src="wall.png" id="wall">
+    </a-assets>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" static-body material="#grass"></a-plane>
+      <!-- Configuração do jogador com corpo dinâmico -->
+      <a-entity id="camera" static-body 
+                            kinematic-body 
+                            scale="0.1 0.1 0.1"
+                            universal-controls 
+                            collision = "scale: 0; width"
+                            position="0 1.6 0">
+                            <a-entity camera = ""
+                              pointerLockEnabled: true></a-entity>
+      </a-entity>
+      <a-sky color="#ECECEC"></a-sky>
+      <!-- Cenário do labirinto será gerado por script -->
+      <a-entity id="maze"></a-entity>
+      <!-- Elemento interativo do desafio -->
+      <a-entity id="challenge" position="11 0.5 -12" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
+  </a-scene>
+</body>
+</html>
