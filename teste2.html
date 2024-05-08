@@ -21,20 +21,12 @@
     </a-assets>
       <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" static-body material="#grass"></a-plane>
       <!-- Configuração do jogador com corpo dinâmico -->
-      <a-entity id="camera" static-body 
-                            kinematic-body 
-                            scale="0.1 0.1 0.1"
-                            universal-controls 
-                            collision = "scale: 0; width"
-                            position="0 1.6 0">
-                            <a-entity camera = ""
-                              pointerLockEnabled: true></a-entity>
-      </a-entity>
+      <a-entity id="camera" camera universal-controls kinematic-body position="-14 1.6 -2"></a-entity>
       <a-sky color="#ECECEC"></a-sky>
       <!-- Cenário do labirinto será gerado por script -->
       <a-entity id="maze"></a-entity>
       <!-- Elemento interativo do desafio -->
-      <a-entity id="challenge" position="11 0.5 -12" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
+      <a-entity id="challenge" position="12 0.5 -10" geometry="primitive: box; width: 1; height: 3; depth: 1" material="color: blue" clickable></a-entity>
   </a-scene>
 </body>
 </html>
