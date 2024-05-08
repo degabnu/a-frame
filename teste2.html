@@ -15,11 +15,11 @@
 <body>
   <a-scene physics="debug: true; gravity: 9.8">
     <a-assets>
-      <img src="grass.jpg" id="grass">
+      <img src="assets/grass.jpg" id="grass">
       <img src="sky.jpg" id="sky">
       <img src="wall.png" id="wall">
     </a-assets>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" static-body material="#grass"></a-plane>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#7BC8A4" static-body material="src: url(assets/grass.jpg)"></a-plane>
       <!-- Configuração do jogador com corpo dinâmico -->
       <a-entity id="camera" camera universal-controls kinematic-body position="-14 1.6 -2"></a-entity>
       <a-sky color="#ECECEC"></a-sky>
