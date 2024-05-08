@@ -5,19 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Maze with Interactive Challenges</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- Inclusão da biblioteca de física A-Frame -->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
     <script src="scripts/main.js" defer></script>
 </head>
-<body>
-    <a-scene physics="debug: true; gravity: -9.8">
-        <!-- Configuração do jogador com corpo dinâmico -->
-        <a-entity id="player" camera look-controls wasd-controls dynamic-body="mass: 5; shape: box" position="0 1.5 0"></a-entity>
+<body>  
+    <!-- <a-scene physics="debug: true; gravity: -9.8"> Configuração da gravidade -->
+    <a-scene fog="type: linear; color: #AAB; near: 0; far:10;" physics id="scene" >
+        <a-entity id="player" camera look-controls wasd-controls dynamic-body="mass: 5; shape: box" position="0 1.5 0" collision-handler boundary-checker></a-entity> <!-- Ajuste da posição inicial -->
         <a-sky color="#ECECEC"></a-sky>
+        <!-- Chão -->
+        <a-plane static-body kinematic-body width="100" height="100" color="#777" rotation="-90 0 0" position="0 -2 0"></a-plane> <!-- Adição do chão -->
         <!-- Cenário do labirinto será gerado por script -->
-        <a-entity id="maze"></a-entity>
+        <a-entity id="maze" class="wall"></a-entity>
         <!-- Elemento interativo do desafio -->
         <a-entity id="challenge" position="0 0.5 -5" geometry="primitive: box; width: 1; height: 1; depth: 1" material="color: blue" clickable></a-entity>
     </a-scene>
+    <script>
+        AFRAME.registerComponent('collision-handler', {
+            init: function () {
+                var el = this.el;
+                el.addEventListener('collide', function (e) {
+                    // Get collided entity
+                    var collidedEntity = e.detail.body.el;
+                    // Check if collided entity is a wall
+                    if (collidedEntity.classList.contains('wall')) {
+                        // Get the direction of movement
+                        var direction = el.body.velocity.clone().negate().normalize();
+                        // Move player back from the wall
+                        el.object3D.position.add(direction.multiplyScalar(0.1));
+                    }
+                });
+            }
+        });
+
+
+        AFRAME.registerComponent('boundary-checker', {
+            init: function () {
+                var el = this.el;
+                var maze = document.querySelector('#maze');
+                var mazeSize = 10; // Assuming the maze size is 10x10
+                var boundary = mazeSize * 1.5; // Assuming each cell is 1.5 units wide
+
+                el.sceneEl.addEventListener('tick', function () {
+                    var playerPosition = el.object3D.position;
+                    var x = playerPosition.x;
+                    var z = playerPosition.z;
+
+                    // Check if the player is outside the maze boundaries
+                    if (x < -boundary) {
+                        el.object3D.position.setX(-boundary);
+                    } else if (x > boundary) {
+                        el.object3D.position.setX(boundary);
+                    }
+                    if (z < -boundary) {
+                        el.object3D.position.setZ(-boundary);
+                    } else if (z > boundary) {
+                        el.object3D.position.setZ(boundary);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
