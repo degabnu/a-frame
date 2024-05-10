@@ -2,10 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Geração da estrutura do labirinto
     generateMaze();
 
-    // Adicionando um ouvinte de eventos ao elemento desafio, !!!por enquanto não ta funcionando!!!
     const challengeElement = document.querySelector('#challenge');
-    challengeElement.addEventListener('click', function() {
-        alert('Parabéns! Você completou o desafio!');
+    var switch1 = false;
+    challengeElement.addEventListener('click', function () {
+        if(switch1){
+            var winner = document.getElementById('winner');
+        winner.setAttribute('visible', true);
+        }
+        switch1 = true;
     });
 });
 
@@ -24,6 +28,7 @@ function generateMaze() {
         wall.setAttribute('depth', '1');
         wall.setAttribute('color', '#555');
         wall.setAttribute('static-body', '');
+        wall.setAttribute('material','src: #asset_wall;');
         mazeElement.appendChild(wall);
     });
 
